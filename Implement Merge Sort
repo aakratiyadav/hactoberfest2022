@@ -1,0 +1,204 @@
+#include<iostream>
+
+#include<fstream>
+
+#include<stdlib.h>
+
+#include<math.h>
+
+using namespace std;
+
+template<class s>
+
+class msort
+
+{
+
+public:
+
+    int  a[500], p, q,r,count;
+
+           void input();
+
+           s mergesort(s a[], s p, s r);
+
+           void merge(s a[], s p, s q , s r);
+
+           void display();
+
+         
+
+       };
+
+template<class s>
+
+void msort<s>::input()
+
+{
+
+    s i;
+
+    cout << "\nEnter number of elements: ";
+
+    cin >> r;
+
+    for (i = 1;i <= r;i++)
+
+        a[i] = rand()%100;
+
+}
+
+template<class s>
+
+s msort<s>::mergesort(s a[], s p, s r)
+
+{
+
+    count = 0;
+
+    if (p < r)
+
+    {
+
+        q = (p + r - 1) / 2;
+
+        mergesort(a, p, q);
+
+        mergesort(a, q + 1, r);
+
+        merge(a, p, q, r);
+
+    }
+
+    return count;
+
+}
+
+template<class s>
+
+void msort<s>::merge(s a[], s p, s q, s r)
+
+{
+
+    int n1 = q - p + 1;
+
+    int n2 = r - q;
+
+    int L[100],R[100];
+
+    for (s i = 1;i<= n1; i++)
+
+    L[i] = a[p+i-1];
+
+    for (s j = 1;j <= n2;j++)
+
+    R[j] = a[q+1];
+
+    L[n1 +1] = 32757;
+
+    R[n2+1]=32757;
+
+    int i, j;
+
+    i = j = 1;
+
+    for (s k = p;k <= r;k++)
+
+    {
+
+        if (L[i] <= R[j])
+
+        {
+
+            a[k] = L[i];
+
+            i++;
+
+            count++;
+
+        }
+
+        else
+
+        {
+
+            a[k] = R[j];
+
+            j++;
+
+            count++;
+
+        }
+
+    }
+
+}
+
+template<class s>
+
+void msort<s>::display()
+
+{
+
+    for (s i = 1;i <= r; i++)
+
+        cout << a[i] << "\t";
+
+}
+
+ 
+
+int main()
+
+{
+
+    ofstream f("m2sort.csv");
+
+        int c;
+
+        msort<int>m;
+
+        char ch;
+
+        do
+
+        {
+
+        
+
+        m.input();
+
+        cout << "\nELEMENTS OF ARRAY ARE: ";
+
+        m.display();
+
+        c = m.mergesort(m.a,1,m.r);
+
+        cout<<"\n number of comparisions:  "<<c; 
+
+        if (f)
+
+        {
+
+            f << m.r << ", " << c <<"," <<m.r*(m.r)<< "," <<m.r*log(m.r)<< ","<<log(m.r);
+
+            f << endl;
+
+        }
+
+        cout << "\nDo you want to continue(y/n)?";
+
+        cin >> ch;
+
+        }
+
+        
+
+            while (ch == 'y' || ch == 'Y');
+
+ 
+
+    return 0;
+
+}
+
